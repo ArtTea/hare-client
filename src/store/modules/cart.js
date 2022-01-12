@@ -1,7 +1,7 @@
 // 购物车模块数据
 
 export default {
-  namepaced: true,
+  namespaced: true,
   state () {
     return {
       // 购物车信息

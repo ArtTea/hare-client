@@ -1,11 +1,11 @@
 // 用户模块数据
 
 export default {
-  namepaced: true,
+  namespaced: true,
   state () {
     return {
       // 用户信息
-      proflie: {
+      profile: {
         id: '',
         avatar: '',
         nickname: '',

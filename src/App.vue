@@ -1,15 +1,10 @@
 <template>
-  <p>{{$store.state.username}}</p>
-  <p>{{$store.getters['updateName']}}</p>
+<!-- 一级路由 -->
+  <router-view></router-view>
 </template>
 <script>
-import { useStore } from 'vuex'
 export default {
-  name: 'App',
-  setup () {
-    const store = useStore()
-    console.log(store.state.username)
-  }
+  name: 'App'
 }
 </script>
 
