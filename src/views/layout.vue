@@ -1,22 +1,42 @@
 <template>
   <!-- 顶部区域 -->
-  <nav>顶部区域</nav>
+  <appNarbar></appNarbar>
   <!-- 头部区域 -->
-  <header>头部区域</header>
+  <appHeader></appHeader>
+  <!-- 吸顶头部区域 -->
+  <appHeaderSticky></appHeaderSticky>
   <!-- 内容区域 -->
-  <div class="main">
+  <div class="app-body">
     <!-- 二级路由 -->
     <router-view></router-view>
   </div>
   <!-- 尾部区域 -->
-  <footer>尾部区域</footer>
+  <appFooter></appFooter>
 </template>
 
 <script>
+import appNarbar from '@/components/app-topnav.vue'
+import appHeader from '@/components/app-header.vue'
+import appFooter from '@/components/app-footer.vue'
+import appHeaderSticky from '@/components/app-header-sticky.vue'
+import { useStore } from 'vuex'
 export default {
+  name: 'Layout',
+  components: {
+    appNarbar,
+    appHeader,
+    appFooter,
+    appHeaderSticky
+  },
+  setup () {
+    const sotre = useStore()
+    sotre.dispatch('category/getCategory')
+  }
 }
 </script>
 
-<style>
-
+<style lang='less' scoped>
+.app-body{
+  min-height: 600px;
+}
 </style>

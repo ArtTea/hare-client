@@ -3,10 +3,10 @@ import createPersistedstate from 'vuex-persistedstate'
 
 import cart from './modules/cart'
 import user from './modules/user'
-import caregory from './modules/caregory'
+import category from './modules/category'
 export default createStore({
   modules: {
-    caregory,
+    category,
     user,
     cart
   },
