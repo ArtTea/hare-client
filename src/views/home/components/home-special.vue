@@ -32,7 +32,6 @@ export default {
   components: { HomePanel },
   setup () {
     const { result, target } = useLazyData(findSpecial)
-    console.log(result)
     return {
       specialList: result, target
     }
