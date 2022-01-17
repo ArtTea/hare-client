@@ -18,7 +18,12 @@ const routes = [
 
 const router = createRouter({
   history: createWebHashHistory(),
-  routes
+  routes,
+  // 每次切换滚回到页面顶部
+  scrollBehavior () {
+    // 始终滚动到顶部
+    return { left: 0, top: 0 }
+  }
 })
 
 export default router
