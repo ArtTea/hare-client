@@ -6,7 +6,7 @@
     <div class="middle">
       <img :src="images[currIndex]" alt="" ref="target">
       <!-- 遮罩层 -->
-      <div class="layer" :style="layerposition"></div>
+      <div v-if="show" class="layer" :style="layerposition"></div>
     </div>
     <!-- 小图 -->
     <ul class="small">

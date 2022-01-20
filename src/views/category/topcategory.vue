@@ -27,7 +27,7 @@
         <div class="head">
           <h3>- {{sub.name}} -</h3>
           <p class="tag">温暖柔软，品质之选</p>
-          <XtxMore :path="`category/sub/${sub.id}`" />
+          <XtxMore :path="`/category/sub/${sub.id}`" />
         </div>
         <div class="body">
           <GoodsItem v-for="goods in sub.goods" :key="goods.id" :goods="goods" />
@@ -75,7 +75,7 @@ export default {
     }
     watch(() => route.params.id, (newVal) => {
       // newVal && getSubList()
-      if (newVal && `category/${newVal}` === route.path)getSubList()
+      if (newVal && `/category/${newVal}` === route.path)getSubList()
     }, { immediate: true })
     return {
       sliders,

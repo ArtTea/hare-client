@@ -4,28 +4,38 @@
       <!-- 面包屑 -->
       <XtxBread>
         <XtxBreadItem :to="`/`">首页</XtxBreadItem>
-        <XtxBreadItem :to="`category/${goods.categories[1].id}`">{{goods.categories[1].name}}</XtxBreadItem>
-        <XtxBreadItem :to="`category/sub/${goods.categories[0].id}`">{{goods.categories[0].name}}</XtxBreadItem>
+        <XtxBreadItem :to="`/category/${goods.categories[1].id}`">{{goods.categories[1].name}}</XtxBreadItem>
+        <XtxBreadItem :to="`/category/sub/${goods.categories[0].id}`">{{goods.categories[0].name}}</XtxBreadItem>
         <XtxBreadItem >{{goods.name}}</XtxBreadItem>
       </XtxBread>
       <!-- 商品信息 -->
       <div class="goods-info">
         <div class="media">
           <GoodsImage :images='goods.mainPictures'/>
+          <GoodsSales/>
         </div>
+         <div class="spec">
+           <GoodName :goods="goods"/>
+           <GoodsSku :goods="goods" @change="changeSku"/>
+           <XtxNumbox v-model="num" :max="goods.inventory" label="数量"/>
+           <xtx-button type="primary"  style="margin-top:20px">加入购物车</xtx-button>
+         </div>
       </div>
       <!-- 商品推荐 -->
-      <GoodsRelevant />
+      <GoodsRelevant :goodsId="goods.id" />
       <!-- 商品详情 -->
       <div class="goods-footer">
         <div class="goods-article">
           <!-- 商品+评价 -->
-          <div class="goods-tabs"></div>
+          <GoodsTab/>
           <!-- 注意事项 -->
-          <div class="goods-warn"></div>
+          <GoodsWarn/>
         </div>
-        <!-- 24热榜+专题推荐 -->
-        <div class="goods-aside"></div>
+        <!-- 24热榜+周热榜 -->
+        <div class="goods-aside">
+          <GoodsHot/>
+          <GoodsHot :type="2"/>
+        </div>
       </div>
     </div>
   </div>
@@ -34,19 +44,46 @@
 <script>
 import GoodsRelevant from './components/goods-relevant'
 import GoodsImage from './components/goods-image.vue'
+import GoodsSales from './components/goods-sales.vue'
+import GoodName from './components/goods-name.vue'
+import GoodsSku from './components/goods-sku.vue'
+import GoodsTab from './components/goods-tab.vue'
+import GoodsHot from './components/goods-hot.vue'
+import GoodsWarn from './components/goods-warn.vue'
 import { findGoods } from '@/api/goods.js'
 import { useRoute } from 'vue-router'
-import { ref, watch } from 'vue'
+import { ref, watch, provide } from 'vue'
+import XtxButton from '../../components/library/xtx-button.vue'
 export default {
   name: 'XtxGoodsPage',
   components: {
     GoodsRelevant,
-    GoodsImage
+    GoodsImage,
+    GoodsSales,
+    GoodName,
+    GoodsSku,
+    GoodsWarn,
+    GoodsHot,
+    XtxButton,
+    GoodsTab
   },
   setup () {
     const goods = useGoods()
+    const changeSku = (sku) => {
+      // 修改商品的现价原价库存信息
+      if (sku.skuId) {
+        goods.value.price = sku.price
+        goods.value.oldPrice = sku.oldPrice
+        goods.value.inventory = sku.inventory
+      }
+    }
+    const num = ref(1)
+    // 提供给Detail数据
+    provide('goods', goods)
     return {
-      goods
+      goods,
+      changeSku,
+      num
     }
   }
 }
@@ -59,7 +96,6 @@ const useGoods = () => {
     if (newVal && `/product/${newVal}` === route.path) {
       findGoods(route.params.id).then(data => {
         goods.value = data.result
-        console.log(data)
       })
     }
   }, { immediate: true })
