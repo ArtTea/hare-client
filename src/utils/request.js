@@ -40,7 +40,6 @@ instance.interceptors.response.use((res) => res.data, (err) => {
     // 组件拿当前地址直接用$route.path会导致地址后的参数丢失，使用$route.fullPath会拿到所有参数
     // js模块中使用router.currentRoute==$route，但是router.currentRoute是ref响应是对象，所以===router.currentRoute.value.fullPath
     // 地址栏后有=&特殊符号需要进行转码处理
-    console.log(router.currentRoute.value.fullPath)
     const fullPath = encodeURIComponent(router.currentRoute.value.fullPath)
     // 转跳需要传参（当前的路由地址）给登录页码
     router.push('/login?redirectUrl=' + fullPath)

@@ -55,6 +55,7 @@ const getSlectedValues = (specs) => {
   })
   return arr
 }
+// 点击按钮时更新禁用状态
 const updateDisabledStatus = (specs, pathMap) => {
   specs.forEach((item, i) => {
     const slectedValues = getSlectedValues(specs)
@@ -87,6 +88,7 @@ export default {
     if (props.skuId) {
       initselectedVal(props.goods, props.skuId)
     }
+
     const pathMap = getPathMap(props.goods.skus)
     // 组件初始化更新状态
     updateDisabledStatus(props.goods.specs, pathMap)

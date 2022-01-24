@@ -18,7 +18,7 @@ export default {
   mutations: {
     // 修改用户信息，payLoad就是用户信息对象
     setUser (state, payLoad) {
-      state.proflie = payLoad
+      state.profile = payLoad
     }
   }
 }

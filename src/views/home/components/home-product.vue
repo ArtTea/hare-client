@@ -3,7 +3,7 @@
     <HomePanel :title="cate.name" v-for="cate in list" :key="cate.id">
       <template v-slot:right>
         <div class="sub" v-for="sub in list.children" :key="sub.id">
-          <RouterLink :to="`catrgory/sub/${sub.id}`">{{sub.name}}</RouterLink>
+          <RouterLink :to="`/catrgory/sub/${sub.id}`">{{sub.name}}</RouterLink>
         </div>
         <XtxMore :to="`/category/${cate.id}`" />
       </template>

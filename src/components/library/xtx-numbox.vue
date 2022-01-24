@@ -23,7 +23,7 @@ export default {
     },
     max: {
       type: Number,
-      default: 10
+      default: 100
     },
     min: {
       type: Number,
@@ -36,11 +36,12 @@ export default {
     const changeNUm = (step) => {
       const newval = count.value + step
       // 判断得到的值是否大于最小值大于最大值
-      if (newval < props.max && newval > props.min) {
-        count.value = newval
-        console.log(newval)
-        emit('change', newval)
-      }
+
+      if (newval < props.min || newval > props.max) return
+
+      count.value = newval
+
+      emit('change', newval)
     }
     return {
       changeNUm
