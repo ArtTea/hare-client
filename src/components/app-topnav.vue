@@ -3,7 +3,7 @@
     <div class="container">
       <ul>
         <template v-if='profile.token'>
-          <li><a href="javascript:;"><i class="iconfont icon-user"></i>{{profile.account}}</a></li>
+          <li><router-link to="/menber"><i class="iconfont icon-user"></i>{{profile.account}}</router-link></li>
           <li><a @click="outLogin" href="javascript:;">退出登录</a></li>
         </template>
         <template v-else>

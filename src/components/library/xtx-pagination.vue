@@ -1,6 +1,4 @@
 <template>
-    {{currpage}}
-
   <div class="xtx-pagination">
     <a @click="changePage(currpage-1)" v-if="currpage>1" href="javascript:;" >上一页</a>
     <a v-else href="javascript:;" class="disabled">上一页</a>

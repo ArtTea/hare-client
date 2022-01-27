@@ -87,7 +87,7 @@
         <div class="total">
           共 {{$store.getters['cart/vaildTotal']}} 件商品，已选择 {{$store.getters['cart/selectedTotal']}} 件，商品合计：
           <span class="red">¥{{$store.getters['cart/selectedAmount']}}</span>
-          <XtxButton type="primary">下单结算</XtxButton>
+          <XtxButton @click="checkOut" type="primary">下单结算</XtxButton>
         </div>
       </div>
       <!-- 猜你喜欢 -->
@@ -102,6 +102,7 @@ import CartSku from './components/cart-sku.vue'
 import { useStore } from 'vuex'
 import Message from '@/components/library/Message.js'
 import Confirm from '@/components/library/Confirm.js'
+import { useRouter } from 'vue-router'
 export default {
   name: 'XtxCartPage',
   components: {
@@ -148,13 +149,31 @@ export default {
     const updateCartSku = (oldSkuId, newSku) => {
       store.dispatch('cart/updateCartSku', { oldSkuId, newSku })
     }
+    // 下单结算
+    const router = useRouter()
+    const { profile } = store.state.user
+    const checkOut = () => {
+      // 判断用户是否选中商品
+      if (store.getters['cart/selectedList'].length === 0) {
+        return Message({ text: '请至少勾选一件商品进行结算' })
+      }
+      if (!profile.token) {
+        Confirm({ text: '下单结算需要登录，确认现在去登录吗？' }).then(() => {
+          router.push('/member/checkout')
+        }).catch(e => {
+        })
+      } else {
+        router.push('/member/checkout')
+      }
+    }
     return {
       checkOne,
       checkAll,
       deleteCart,
       batchDeleteCart,
       updateCount,
-      updateCartSku
+      updateCartSku,
+      checkOut
     }
   }
 }

@@ -7,7 +7,7 @@ import store from '@/store'
 // 导入路由
 import router from '@/router/index.js'
 // 导出求根地址，原因：其他地方可能有不是通过axios发请求的地方用的到根地址
-const baseURL = 'http://pcapi-xiaotuxian-front-devtest.itheima.net/'
+export const baseURL = 'http://pcapi-xiaotuxian-front-devtest.itheima.net'
 const instance = axios.create({
   // axios的基本配置：请求根地址和请求失效时间
   baseURL,
