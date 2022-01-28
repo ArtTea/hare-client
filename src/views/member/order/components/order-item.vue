@@ -6,8 +6,8 @@
         <span class="down-time" v-if="order.orderState===1">
           <i class="iconfont icon-down-time"></i>
           <b>付款截止：{{timeText}}</b>
-          <a href="javascript:;" v-if="[5,6].includes(order.orderState)" class="del">删除</a>
         </span>
+          <a @click="$emit('on-delete',order)" href="javascript:;" v-if="[5,6].includes(order.orderState)" class="del">删除</a>
       </div>
       <div class="body">
         <div class="column goods">
@@ -27,7 +27,7 @@
         </div>
         <div class="column state">
           <p>{{orderStatus[order.orderState].label}}</p>
-          <p><a v-if="order.orderState===3" class="green" href="javascript:;">查看物流</a></p>
+          <p @click="$emit('on-logistics',order)" ><a v-if="order.orderState===3" class="green" href="javascript:;">查看物流</a></p>
           <p><a v-if="order.orderState===4" class="green" href="javascript:;">查看商品</a></p>
           <p><a v-if="order.orderState===5" class="green" href="javascript:;">查看评价</a></p>
         </div>
@@ -38,10 +38,10 @@
         </div>
         <div class="column action">
           <XtxButton @click="$router.push(`/member/pay?orderId=${order.id}`)" v-if="order.orderState===1"  type="primary" size="small">立即付款</XtxButton>
-          <XtxButton v-if="order.orderState===3"  type="primary" size="small">确认收货</XtxButton>
-          <p><a href="javascript:;">查看详情</a></p>
-          <p v-if="order.orderState===1" ><a href="javascript:;">取消订单</a></p>
-          <p v-if="[2,3,4,5].includes(order.orderState)" ><a href="javascript:;">再次购买</a></p>
+          <XtxButton @click="$emit('on-confirm',order)" v-if="order.orderState===3"  type="primary" size="small">确认收货</XtxButton>
+          <p><a @click="$router.push(`/member/order/${order.id}`)" href="javascript:;">查看详情</a></p>
+          <p @click="$emit('on-cancel',order)" v-if="order.orderState===1" ><a href="javascript:;">取消订单</a></p>
+          <p @click="$router.push(`/member/checkout?orderId=${order.id}`)" v-if="[2,3,4,5].includes(order.orderState)" ><a href="javascript:;">再次购买</a></p>
           <p v-if="[4,5].includes(order.orderState)" ><a href="javascript:;">申请售后</a></p>
         </div>
       </div>
@@ -59,6 +59,7 @@ export default {
       default: () => ({})
     }
   },
+  emits: ['on-cancel', 'on-cancel', 'on-confirm', 'on-logistics'],
   setup (props) {
     const { star, timeText } = usePayTime()
     star(props.order.countdown)

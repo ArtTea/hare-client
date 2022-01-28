@@ -12,10 +12,10 @@ const Login = () => import('@/views/login/login.vue')
 const CheckOut = () => import('@/views/member/pay/checkout.vue')
 const Pay = () => import('@/views/member/pay/index')
 const PayResult = () => import('@/views/member/pay/component/result.vue')
-const MenberLayOut = () => import('@/views/member/Layout.vue')
-const MenberHome = () => import('@/views/member/home/home.vue')
-const MenberOrder = () => import('@/views/member/order/index.vue')
-const MenberOrderDetail = () => import('@/views/member/order/detail.vue')
+const MemberLayOut = () => import('@/views/member/Layout.vue')
+const MemberHome = () => import('@/views/member/home/home.vue')
+const MemberOrder = () => import('@/views/member/order/index.vue')
+const MemberOrderDetail = () => import('@/views/member/order/detail.vue')
 const routes = [
   // 一级路由布置
   {
@@ -37,17 +37,17 @@ const routes = [
       // 个人中心
       {
         path: '/menber',
-        component: MenberLayOut,
+        component: MemberLayOut,
         children: [
-          { path: '/menber', component: MenberHome },
+          { path: '/menber', component: MemberHome },
           // { path: '/menber/order', component: MenberOrder },
           // { path: '/menber/order/:id', component: MenberOrderDetail }
           {
             path: '/menber/order',
-            component: { render: () => h(<router-view />) },
+            component: { render: () => h(<RouterView/>) },
             children: [
-              { path: '', component: MenberOrder },
-              { path: ':id', component: MenberOrderDetail }
+              { path: '', component: MemberOrder },
+              { path: '/member/order/:id', component: MemberOrderDetail }
             ]
           }
 

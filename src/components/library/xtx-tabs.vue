@@ -11,9 +11,9 @@ export default {
   },
   setup (props, { emit }) {
     const activeName = useVModel(props, 'modelValue', emit)
-    const tabCilck = (name, i) => {
+    const tabCilck = (name, index) => {
       activeName.value = name
-      emit('tab-click', { name, i })
+      emit('tab-click', { name, index })
     }
     provide('activeName', activeName)
     return {
